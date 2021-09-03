@@ -1,4 +1,5 @@
 * {
+    justify-content: center;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,43 +10,48 @@
 }
 
 .App {
+    justify-content: center;
     text-align: center;
     align-content: center;
-    justify-content: center;
+    flex-direction: column;
     display: flex;
 }
 
 .header {
     margin-top: 0px;
-    align-self: left;
     display: flex;
     width: 101%;
-    height: auto;
+    height: 160px;
     background-color: black;
+}
+
+.body{
+background-color: white;
+width: 100%;
+
+}
+
+.products{
+    margin-left: 40px;
+    margin-top: 250px;
+    position: absolute;
+    background-color: blueviolet;
+    width: 350px;
+    height: 350px;
 }
 
 .search-box {
     position: absolute;
-    width: 50%;
+    width: 100%;
     margin-top: 30px;
-    margin-left: 300px;
-}
-
-.search-form {
-    height: 40px;
-    border: 1px solid black;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background-color: white;
-    overflow: hidden;
+    margin-right: 125px;
 }
 
 .search-text {
     font-size: 14px;
     color: #ddd;
-    border-width: 1;
-    border-radius: 20px 0 0 20px;
+    border-style:ridge;
+    border-radius: 30px 30px 30px 30px;
     background: transparent;
 }
 
@@ -57,30 +63,29 @@
 }
 
 .search-button {
+    border:none;
     position: absolute;
     top: 0;
     bottom: 0;
-    float: right;
-    margin-left: 280px;
+    margin-left: 220px;
     height: 47px;
     width: 100px;
     font-size: 14px;
     color: #fff;
-    background-color: rgb(11, 85, 11);
+    background-color:transparent;
     text-align: center;
     line-height: 42px;
-    border-width: 0;
     /*--define a cor do botão Buscar--*/
     -webkit-border-radius: 0px 5px 5px 0px;
     -moz-border-radius: 0px 5px 5px 0px;
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0px 20 20 0px;
     cursor: pointer;
 }
 
 .menu {
     margin-top: 100px;
-    margin-left: 165px;
-    position: relative;
+    position: absolute;
+    width: 100%;
 }
 
 .menu ul {
