@@ -1,46 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { ContextWrapper } from '../contexts/State';
 import SearchBar from '../components/SearchBar';
 import "typeface-roboto";
+import { Link } from 'react-router-dom';
 
 import sustentalize1 from '../images/sustentalize1.png';
 import userIcon from '../images/userIcon.png';
 import seta from '../images/seta.png';
-import { api } from '../utils/api';
-import '../App.css';
 
-import { Link } from 'react-router-dom';
+import '../App.css'
+
+import { api } from '../utils/api';
 
 type User = {
-  id: number;
-  email: string;
-  username: string;
-  password: string;
-  session_id: string;
-}
+  email: string,
+  username: string,
+  password: string
+};
 
-function Login() {
-  const [username, setUsername] = useState(""); 
-  const [password, setPassword] = useState(""); 
+function Cadastro() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const apiRequest = async () => {
-    try {
-      const response = await api.post('/login', { username, password });
-      
-    } catch (error: any) {
-      throw new Error(error);
-    }
-  }
-
-  const apiRequestGetUserFromSession = async () => {
-    try {
-      const res = await api.get<User>('/user/session');
-      setUsername(res.data.username);
-      setPassword(res.data.password);
-    } catch (err: any) {
-      throw new Error(err);
-    }
+  const save = () => {
+    api.post('/user', { email, username, password } as User)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   const scrollToTop = () => {
@@ -57,7 +48,7 @@ function Login() {
           <div className="header">
             <img src={sustentalize1} className="App-logo" alt="logo" style={{ width: 125, height: 125, display: 'flex', marginLeft: 0 }} />
             <SearchBar />
-            <div className="login-name"><a href="#">LOGIN</a></div>
+            <div className="login-name"><Link to="/login">LOGIN</Link></div>
             <div className="menu">
               <ul className="menu-3" style={{ width: '100vw', display: 'flex', justifyContent: 'center' }}>
                 <li>
@@ -86,22 +77,19 @@ function Login() {
                     </div>
 
                     <div className="title-2">
-                        LOGIN DE USUÁRIO
+                        CADASTRO DE USUÁRIO
                     </div>
                     <div className="input-1">
                       <input type="text" placeholder="Insira seu nome de usuário" onChange={event => setUsername(event.target.value)}></input>
                     </div>
                     <div className="input-2">
-                      <input type="text" placeholder="Insira sua senha"></input>
+                      <input type="text" placeholder="Insira sua senha" onChange={event => setPassword(event.target.value)}></input>
                     </div>
-                    <div className="button-1">
-                      <button type="button" onClick={() => {
-                        apiRequest();
-                        apiRequestGetUserFromSession();
-                      }}>ENTRAR</button>
+                    <div className="input-3">
+                      <input type="text" placeholder="Insira seu e-mail" onChange={event => setEmail(event.target.value)}></input>
                     </div>
-                    <div className="subtitle-1">
-                    Não possui cadastro? <Link to="/register">Cadastre-se agora!</Link>
+                    <div className="button-2">
+                      <button type="button" onClick={save}>CADASTRAR</button>
                     </div>
                     
                 </div>
@@ -132,4 +120,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Cadastro;

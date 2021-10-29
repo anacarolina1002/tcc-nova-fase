@@ -17,15 +17,15 @@ export default function Carousel({ images }) {
         }
 
         <div className="CarouselImageContainer">
-          <img style={{width:450,height:450}} src={images[value]} />
+          <img style={{width:350,height:350}} src={images[value]} />
         </div>
 
         <div className="CarouselImageContainer">
-          <img style={{width:450,height:450}} src={images[value+1]} />
+          <img style={{width:350,height:350}} src={images[value+1]} />
         </div>
 
         <div className="CarouselImageContainer">
-          <img style={{width:450,height:450}} src={images[value+2]} />
+          <img style={{width:350,height:350}} src={images[value+2]} />
         </div>
 
         {value + 2 <= value.length ?  
