@@ -361,3 +361,145 @@
 .subtitle-1 a:hover{
     color:#d94f5c;
 }
+.product-image{
+    background-color: gray;
+    position: absolute;
+    width: 412px;
+    height: 699px;
+    right:947px;
+    left: 10px;
+    top: 192px;
+    bottom:67px;
+}
+.product-name{
+    background-color:yellow;
+    position: absolute;
+    width: 490px;
+    height: 58px;
+    left: 472px;
+    top: 222px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 59px;
+
+    color: #000000;
+
+    color: #000000;
+}
+.product-price{
+    background-color:red;
+    position: absolute;
+    width: 346px;
+    height: 58px;
+    left: 472px;
+    top: 289px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 59px;
+    color: #1A6C13;
+}
+.product-parcel{
+    background-color: blue;
+    position: absolute;
+    width: 285px;
+    height: 30px;
+    left: 472px;
+    top: 356px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+.product-payment{
+    background-color: rgb(40, 221, 40);
+    position: absolute;
+    width: 285px;
+    height: 38px;
+    left: 472px;
+    top: 395px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #4AB4BB;
+
+}
+.product-color{
+    background-color: pink;
+    position: absolute;
+    width: 285px;
+    height: 35px;
+    left: 472px;
+    top: 442px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+
+}
+.product-informations{
+    background-color: violet;
+    position: absolute;
+    width: 399px;
+    height: 48px;
+    left: 470px;
+    top: 522px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 35px;
+
+    color: #000000;
+
+}
+.product-informations-2{
+    background-color: rgb(99, 64, 99);
+    position: absolute;
+    width: 326px;
+    height: 272px;
+    left: 490px;
+    top: 604px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #000000;
+}
+.product-banner{
+    position: absolute;
+    width: 350px;
+    height: 699px;
+    left: 990px;
+    top: 192px;
+
+    background: #C4C4C4;
+    border-radius: 50px;
+}
+.buy-button button{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    position: absolute;
+    width: 125px;
+    height:42px;
+    left: 868px;
+    top: 876px;
+    background: #1A6C13;
+    border-radius: 100px;
+    color:#fff;
+}

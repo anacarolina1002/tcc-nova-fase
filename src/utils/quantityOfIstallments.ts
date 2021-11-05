@@ -1,0 +1,5 @@
+function quantityOfInstallments() {
+  switch(value) {
+    
+  }
+}

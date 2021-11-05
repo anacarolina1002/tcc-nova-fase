@@ -9,17 +9,26 @@ type ProductParams = {
   quantityOfInstallments: number,
   color: string
 };
+//{ productName, price, quantityOfInstallments, color }: ProductParamss
 
-const Product = ({ productName, price, quantityOfInstallments, color }: ProductParams) => {
-  const { id } = useParams();
+type Params = { 
+  id: string
+}
+
+const Product = () => {
+  const { id } = useParams<Params>();
 
   const [name, setName] = useState();
-  const [price, setPrice] = useState();
+  const [_price, setPrice] = useState();
   const [size, setSize] = useState();
-  const [color, setColor] = useState();
+  const [_color, setColor] = useState();
   const [description, setDescription] = useState();
 
-  async function apiRequest(id: number) {
+  
+
+  const comprar = () => {}
+
+  async function apiRequest(id: string) {
     try {
       const data = await api.get(`/product?ID=${id}`);
     } catch(err) {
@@ -35,12 +44,38 @@ const Product = ({ productName, price, quantityOfInstallments, color }: ProductP
     <div>
       <Header />
       <div>
-        <img src="" alt=""/>
-        <div>{ productName }</div>
-        <div>R${ price }</div>
-        <div>ou em até { quantityOfInstallments }x no cartão</div>
-        <button>Ver meios de pagamento</button>
-      </div>
+        <div className="product-image">
+          <img src="">
+          </img>
+        </div>
+        <div className="product-name">
+          
+        </div>
+        <div className="product-price">
+
+        </div>
+        <div className="product-parcel">
+
+        </div>
+        <div className="product-payment">
+
+        </div>
+        <div className="product-color">
+
+        </div>
+        <div className="product-informations">
+          
+        </div>
+        <div className="product-informations-2">
+
+        </div>
+        <div className="product-banner">
+
+        </div>
+        <div className="buy-button">
+          <button type="button" onClick={comprar}>COMPRAR</button>
+        </div>
+        </div>
     </div>
   );
 }

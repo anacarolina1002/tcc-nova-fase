@@ -11,6 +11,8 @@ import blusaAzul from '../images/blusaAzul.jpg';
 import casacoAzul from '../images/casacoAzul.jpg';
 import vansBordo from '../images/vansBordo.jpg';
 import seta from '../images/seta.png';
+import sustentalize1 from '../images/sustentalize1.png';
+
 import '../App.css';
 
 import Login from '../pages/Login';
