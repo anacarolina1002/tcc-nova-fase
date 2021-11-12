@@ -1,5 +1,3 @@
-function quantityOfInstallments() {
-  switch(value) {
-    
-  }
-}
+const quantityOfInstallments = () => {}
+
+export { quantityOfInstallments };

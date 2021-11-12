@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import Header from '../components/Header';
 import { useParams } from 'react-router-dom';
 import { api } from '../utils/api';
@@ -9,38 +9,53 @@ type ProductParams = {
   quantityOfInstallments: number,
   color: string
 };
-//{ productName, price, quantityOfInstallments, color }: ProductParamss
 
-type Params = { 
+type RouteParams = {
   id: string
 }
 
-const Product = () => {
-  const { id } = useParams<Params>();
+type ProductData = {
+  name: string,
+  price: number,
+  size: number,
+  color: string,
+  description: string
+}
 
-  const [name, setName] = useState();
-  const [_price, setPrice] = useState();
-  const [size, setSize] = useState();
-  const [_color, setColor] = useState();
-  const [description, setDescription] = useState();
+const Product: FC = () => {
+  const { id } = useParams<RouteParams>();
 
-  
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [size, setSize] = useState(0);
+  const [color, setColor] = useState("");
+  const [description, setDescription] = useState("");
 
-  const comprar = () => {}
+  const [loaded, setLoaded] = useState(false);
 
-  async function apiRequest(id: string) {
+  const buying = () => { 
+    console.log('buying');
+  }
+
+  const gettingProductData = async (id: string) => {
     try {
-      const data = await api.get(`/product?ID=${id}`);
-    } catch(err) {
+      const { data } = await api.get<ProductData>(`/product?ID=${id}`);
+
+      setName(data.name);
+      setPrice(data.price);
+      setSize(data.size);
+      setColor(data.color);
+      setDescription(data.description);
+    } catch (err) {
       console.error(err);
     }
   }
-  
-  useEffect(() => {
-    apiRequest(id);
-  }, [])
 
-  return (  
+  useEffect(() => {
+    gettingProductData(id);
+  }, [id])
+
+  return (
     <div>
       <Header />
       <div>
@@ -48,36 +63,44 @@ const Product = () => {
           <img src="">
           </img>
         </div>
+
         <div className="product-name">
-          
+          { name }
         </div>
+
         <div className="product-price">
-
+          { price }
         </div>
+
         <div className="product-parcel">
-
         </div>
+
         <div className="product-payment">
 
         </div>
+
         <div className="product-color">
+          { color }
+        </div>
+
+        <div className="product-informations">
 
         </div>
-        <div className="product-informations">
-          
-        </div>
+
         <div className="product-informations-2">
 
         </div>
+
         <div className="product-banner">
 
         </div>
+
         <div className="buy-button">
-          <button type="button" onClick={comprar}>COMPRAR</button>
+          <button type="button" onClick={buying}>COMPRAR</button>
         </div>
-        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Product;
