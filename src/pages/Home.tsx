@@ -5,14 +5,15 @@ import SearchBar from '../components/SearchBar';
 import "typeface-roboto";
 
 //import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
+//import '@brainhubeu/react-carousel/lib/style.css';
 
 import blusaAzul from '../images/blusaAzul.jpg';
 import casacoAzul from '../images/casacoAzul.jpg';
 import vansBordo from '../images/vansBordo.jpg';
 import seta from '../images/seta.png';
 import sustentalize1 from '../images/sustentalize1.png';
-
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import '../App.css';
 
 import Login from '../pages/Login';
@@ -39,28 +40,7 @@ function Home() {
     <ContextWrapper>
       <div className="App">
         <div className="header">
-          <img src={sustentalize1} className="App-logo" alt="logo" style={{ width: 125, height: 125, display: 'flex', marginLeft: 0 }} />
-          <SearchBar />
-          <div className="login-name" onClick={() =>  setLogin(true)}>LOGIN</div>
-          <div className="menu">
-            <ul className="menu-3" style={{ width: '100vw', display: 'flex', justifyContent: 'center' }}>
-              <li>
-                HOME
-              </li>
-              <li>
-                ROUPAS
-              </li>
-              <li>
-                CALÇAS
-              </li>
-              <li>
-                SAPATOS
-              </li>
-              <li>
-                CONTATO
-              </li>
-            </ul>
-          </div>
+          <Header/>
         </div>
         <div className="body">
           <Carousel images={[blusaAzul,vansBordo,vansBordo]} />
@@ -162,14 +142,12 @@ function Home() {
               Rua Marechal Floriano Peixoto, Criciúma, Santa Catarina - 88801-040<br></br>
               Atendimento Online
               </div>
-            </div>
-            <div className="footer-2">
-              Produzido por Ana Carolina Machado e Joel F. Da Silva
-              <span className="back-to-top" onClick={scrollToTop}>
-                <img src={seta} style={{width:60, height:60}} />
-              </span>
+              
+                <Footer/>
+              
             </div>
       </div>
+      
     </ContextWrapper>
   </CookiesProvider>
     }

@@ -4,7 +4,7 @@ import { ContextWrapper } from '../contexts/State';
 import SearchBar from '../components/SearchBar';
 import "typeface-roboto";
 import { Link } from 'react-router-dom';
-
+import Footer from '../components/Footer';
 import sustentalize1 from '../images/sustentalize1.png';
 import userIcon from '../images/userIcon.png';
 import seta from '../images/seta.png';
@@ -32,13 +32,6 @@ function Cadastro() {
       .catch(err => {
         console.error(err);
       });
-  }
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    })
   }
 
   return (
@@ -107,10 +100,7 @@ function Cadastro() {
                 </div>
               </div>
               <div className="footer-2">
-                Produzido por Ana Carolina Machado e Joel F. Da Silva
-                <span className="back-to-top" onClick={scrollToTop}>
-                  <img src={seta} style={{width:60, height:60}} />
-                </span>
+                <Footer/>
               </div>
               </div>
 

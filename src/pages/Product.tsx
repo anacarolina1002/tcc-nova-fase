@@ -1,7 +1,9 @@
 import { useState, useEffect, FC } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 import { api } from '../utils/api';
+import '../App.css';
 
 type ProductParams = {
   productName: string,
@@ -58,7 +60,7 @@ const Product: FC = () => {
   return (
     <div>
       <Header />
-      <div>
+      <div className="product-body">
         <div className="product-image">
           <img src="">
           </img>
@@ -99,6 +101,7 @@ const Product: FC = () => {
           <button type="button" onClick={buying}>COMPRAR</button>
         </div>
       </div>
+      <p style={{marginTop:100}}><Footer/></p>
     </div>
   );
 };

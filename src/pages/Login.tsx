@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { ContextWrapper } from '../contexts/State';
-import SearchBar from '../components/SearchBar';
 import "typeface-roboto";
-
-import sustentalize1 from '../images/sustentalize1.png';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import userIcon from '../images/userIcon.png';
-import seta from '../images/seta.png';
 import { api } from '../utils/api';
 import '../App.css';
 
@@ -54,30 +52,7 @@ function Login() {
     <CookiesProvider>
       <ContextWrapper>
         <div className="App">
-          <div className="header">
-            <img src={sustentalize1} className="App-logo" alt="logo" style={{ width: 125, height: 125, display: 'flex', marginLeft: 0 }} />
-            <SearchBar />
-            <div className="login-name"><a href="#">LOGIN</a></div>
-            <div className="menu">
-              <ul className="menu-3" style={{ width: '100vw', display: 'flex', justifyContent: 'center' }}>
-                <li>
-                  HOME
-                </li>
-                <li>
-                  ROUPAS
-                </li>
-                <li>
-                  CALÇAS
-                </li>
-                <li>
-                  SAPATOS
-                </li>
-                <li>
-                  CONTATO
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Header/>
           <div className="body">
               <div className="wrapper">
                 <div className="gray-box">
@@ -118,16 +93,11 @@ function Login() {
                 Atendimento Online
                 </div>
               </div>
-              <div className="footer-2">
-                Produzido por Ana Carolina Machado e Joel F. Da Silva
-                <span className="back-to-top" onClick={scrollToTop}>
-                  <img src={seta} style={{width:60, height:60}} />
-                </span>
+              <Footer/>
               </div>
               </div>
 
-        </div>
-      </ContextWrapper>
+          </ContextWrapper>
     </CookiesProvider>
   );
 }
