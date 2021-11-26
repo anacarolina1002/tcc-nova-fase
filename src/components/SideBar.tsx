@@ -11,7 +11,6 @@ export default function SideBar() {
       <Menu iconShape="square">
         <MenuItem icon={<FiDollarSign />}>Vendas</MenuItem>
         <MenuItem icon={<FiShoppingBag />}>Produtos</MenuItem>
-        <MenuItem icon={<FiBell />}>Anúncios</MenuItem>
         <MenuItem icon={<FiUsers />}>Clientes</MenuItem>
       </Menu>
     </SidebarContent>
