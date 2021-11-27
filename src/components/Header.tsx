@@ -24,6 +24,9 @@ const Header = () => {
           <li>
             CONTATO
           </li>
+          <li>
+            SOBRE NÓS
+          </li>
         </ul>
       </div>
     </div>

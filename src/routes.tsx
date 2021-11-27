@@ -4,6 +4,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import CookiesPage from './pages/CookiesPage';
+import AboutUs from './pages/AboutUs';
 import Adress from './pages/Endereço';
 import Home from './pages/Home';
 import Cadastro from './pages/Cadastro';
@@ -20,6 +22,12 @@ export default function Routes() {
   return (
     <Router>
       <Switch>
+        <Route path="/about-us">
+          <AboutUs/>
+        </Route>
+        <Route path="/cookies-page">
+          <CookiesPage/>
+        </Route>
         <Route exact path="/add/product">
           <AddProduct />
         </Route>
