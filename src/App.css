@@ -6,7 +6,7 @@
 }
 
 ::-webkit-input-placeholder {
-    color: rgb(148, 147, 147);
+    color: rgb(56, 55, 55);
 }
 
 .App {
@@ -746,4 +746,9 @@
 
 .about-us a:hover {
     color: #d94f5c;
+}
+
+.cookies-title {
+    margin-bottom: 30px;
+    font-size: 30px;
 }

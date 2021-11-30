@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CookieWindow from '../components/CookieWindow';
 import "typeface-roboto";
+import folhagem from '../images/folhagem.jpg';
 
 import '../App.css';
 
@@ -15,9 +16,13 @@ function CookiesPage() {
           <Header/>
         </div>
             <div>
+              <div className="cookies-title">
+                Política de Cookies
+                <hr style={{marginLeft:530, width:300}}></hr>
+              </div>
                <div className="cookies-space">
                 <CookieWindow/>
-                </div>     
+                </div> 
             </div>
         <div className="footer-1">
               <div className="footer-1-text">

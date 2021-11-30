@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { ContextWrapper } from '../contexts/State';
-import SearchBar from '../components/SearchBar';
 import "typeface-roboto";
 
 //import Carousel from '@brainhubeu/react-carousel';
 //import '@brainhubeu/react-carousel/lib/style.css';
 
 import blusaAzul from '../images/blusaAzul.jpg';
-import casacoAzul from '../images/casacoAzul.jpg';
 import vansBordo from '../images/vansBordo.jpg';
-import seta from '../images/seta.png';
-import sustentalize1 from '../images/sustentalize1.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../App.css';
