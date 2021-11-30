@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import userIcon from '../images/userIcon.png';
 import { api } from '../utils/api';
 import '../App.css';
+import { createBrowserHistory } from 'history';
 
 import { Link } from 'react-router-dom';
 
@@ -19,13 +20,20 @@ type User = {
 }
 
 function Login() {
-  const [username, setUsername] = useState(""); 
+  const history = createBrowserHistory();
+
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
 
   const apiRequest = async () => {
     try {
-      const response = await api.post('/login', { username, password });
-      
+      const res = await api.post('/login', { email, password });
+
+      if (!res.data.login) 
+        return;
+
+      localStorage.setItem('@token/sustentalize', res.data.token);
+      history.push("/home");
     } catch (error: any) {
       throw new Error(error);
     }
@@ -34,7 +42,7 @@ function Login() {
   const apiRequestGetUserFromSession = async () => {
     try {
       const res = await api.get<User>('/user/session');
-      setUsername(res.data.username);
+      setEmail(res.data.email);
       setPassword(res.data.password);
     } catch (err: any) {
       throw new Error(err);
@@ -64,7 +72,7 @@ function Login() {
                         LOGIN DE USUÁRIO
                     </div>
                     <div className="input-1">
-                      <input type="text" placeholder="Insira seu nome de usuário" onChange={event => setUsername(event.target.value)}></input>
+                      <input type="text" placeholder="Insira seu nome de usuário" onChange={event => setEmail(event.target.value)}></input>
                     </div>
                     <div className="input-2">
                       <input type="text" placeholder="Insira sua senha"></input>

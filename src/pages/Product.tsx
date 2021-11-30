@@ -5,13 +5,6 @@ import { useParams } from 'react-router-dom';
 import { api } from '../utils/api';
 import '../App.css';
 
-type ProductParams = {
-  productName: string,
-  price: number,
-  quantityOfInstallments: number,
-  color: string
-};
-
 type RouteParams = {
   id: string
 }
@@ -22,6 +15,15 @@ type ProductData = {
   size: number,
   color: string,
   description: string
+  image_url: string
+}
+
+type Product = {
+  product: ProductData
+}
+
+type ImageData = {
+  url: string
 }
 
 const Product: FC = () => {
@@ -32,8 +34,8 @@ const Product: FC = () => {
   const [size, setSize] = useState(0);
   const [color, setColor] = useState("");
   const [description, setDescription] = useState("");
-
-  const [loaded, setLoaded] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [url, setUrl] = useState("");
 
   const buying = () => { 
     console.log('buying');
@@ -41,13 +43,17 @@ const Product: FC = () => {
 
   const gettingProductData = async (id: string) => {
     try {
-      const { data } = await api.get<ProductData>(`/product?ID=${id}`);
+      const { data } = await api.get<Product>(`/product/${id}`);
 
-      setName(data.name);
-      setPrice(data.price);
-      setSize(data.size);
-      setColor(data.color);
-      setDescription(data.description);
+      setName(data.product.name);
+      setPrice(data.product.price);
+      setSize(data.product.size);
+      setColor(data.product.color);
+      setDescription(data.product.description);
+      setImageUrl(data.product.image_url);
+      
+      const res = await api.get<ImageData>(`/imageurl/${imageUrl}`);
+      setUrl(res.data.url);
     } catch (err) {
       console.error(err);
     }
@@ -55,14 +61,14 @@ const Product: FC = () => {
 
   useEffect(() => {
     gettingProductData(id);
-  }, [id])
+  }, [])
 
   return (
     <div>
       <Header />
       <div className="product-body">
         <div className="product-image">
-          <img src="">
+          <img src={ url }>
           </img>
         </div>
 
@@ -101,7 +107,7 @@ const Product: FC = () => {
           <button type="button" onClick={buying}>COMPRAR</button>
         </div>
       </div>
-      <p style={{marginTop:100}}><Footer/></p>
+      {/* <Footer/> */}
     </div>
   );
 };
