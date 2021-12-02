@@ -15,8 +15,8 @@ import Admin from './pages/Admin';
 import Sales from './pages/AdminSales';
 import AdminProducts from './pages/AdminProducts';
 import AdminClients from './pages/AdminClients';
-import AddAddress from './pages/AddAddress';
-import AddProduct from './pages/AddProduct';
+import AddAddress from './pages/AddAddress/AddAddress';
+import AddProduct from './pages/AddProduct/AddProduct';
 
 export default function Routes() {
   return (

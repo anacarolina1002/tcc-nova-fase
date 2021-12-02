@@ -92,9 +92,10 @@ function Login() {
                 Rua Marechal Floriano Peixoto, Criciúma, Santa Catarina - 88801-040<br></br>
                 Atendimento Online
                 </div>
+                <Footer/>
               </div>
-              <Footer/>
               </div>
+              
               </div>
 
           </ContextWrapper>

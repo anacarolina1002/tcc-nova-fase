@@ -1,0 +1,28 @@
+* {
+    font-family: 'Roboto';
+}
+
+.contact {
+    flex-direction: row-reverse;
+    display: flex;
+    flex: 1;
+    width: 150px;
+    height: 150px;
+    margin-top: 50px;
+    margin-left: 1000px;
+}
+
+.instagram {
+    margin-left: 10px;
+}
+
+.fill-cart {
+    position: absolute;
+    margin-left: 750px;
+    margin-top: 95px;
+}
+
+.logo {
+    position: absolute;
+    margin-left: 0;
+}

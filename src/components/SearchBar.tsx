@@ -1,7 +1,7 @@
 import lupa from '../images/lupa.jpg';
 export default function SearchBar() {
   return (
-    <div className='search-wrapper' style={{ width: '100vw', display: 'flex', justifyContent: 'center' }}>
+    <div className='search-wrapper' style={{ position:'absolute', width: '100vw', display: 'flex', justifyContent: 'center' }}>
       <div className='search-box' style={{ width: 500 }}>
         <input className='search-text' name='q' placeholder='Search...' type='text'/>
         <button className='search-button' type='submit'>
