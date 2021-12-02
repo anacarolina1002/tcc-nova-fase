@@ -354,7 +354,6 @@
 }
 
 .product-image {
-    background-color: gray;
     position: absolute;
     width: 412px;
     height: 699px;
@@ -365,7 +364,6 @@
 }
 
 .product-name {
-    background-color: yellow;
     position: absolute;
     width: 490px;
     height: 58px;
@@ -381,7 +379,6 @@
 }
 
 .product-price {
-    background-color: red;
     position: absolute;
     width: 346px;
     height: 58px;
@@ -426,7 +423,6 @@
 }
 
 .product-color {
-    background-color: pink;
     position: absolute;
     width: 285px;
     height: 35px;
@@ -441,7 +437,6 @@
 }
 
 .product-informations {
-    background-color: violet;
     position: absolute;
     width: 399px;
     height: 48px;
@@ -456,7 +451,6 @@
 }
 
 .product-informations-2 {
-    background-color: rgb(99, 64, 99);
     position: absolute;
     width: 326px;
     height: 272px;

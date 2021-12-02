@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { api } from '../utils/api';
 import '../App.css';
 
+import { useHistory } from 'react-router-dom';
+
 type RouteParams = {
   id: string
 }
@@ -27,6 +29,8 @@ type ImageData = {
 }
 
 const Product: FC = () => {
+  let history = useHistory();
+
   const { id } = useParams<RouteParams>();
 
   const [name, setName] = useState("");
@@ -38,7 +42,10 @@ const Product: FC = () => {
   const [url, setUrl] = useState("");
 
   const buying = () => { 
-    console.log('buying');
+    const products = JSON.parse(String(localStorage.getItem("@products/sustentalize"))) ?? [];
+    const newProducts = products.push(id);
+    localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
+    history.push('/address');
   }
 
   const gettingProductData = async (id: string) => {
@@ -52,8 +59,10 @@ const Product: FC = () => {
       setDescription(data.product.description);
       setImageUrl(data.product.image_url);
       
-      const res = await api.get<ImageData>(`/imageurl/${imageUrl}`);
+      const res = await api.get<ImageData>(`/imageurl/${data.product.image_url}`);
       setUrl(res.data.url);
+      
+      console.log(url);
     } catch (err) {
       console.error(err);
     }
@@ -68,8 +77,7 @@ const Product: FC = () => {
       <Header />
       <div className="product-body">
         <div className="product-image">
-          <img src={ url }>
-          </img>
+          <img src={ url } />
         </div>
 
         <div className="product-name">
@@ -77,30 +85,19 @@ const Product: FC = () => {
         </div>
 
         <div className="product-price">
-          { price }
-        </div>
-
-        <div className="product-parcel">
-        </div>
-
-        <div className="product-payment">
-
+          R$ { price }
         </div>
 
         <div className="product-color">
-          { color }
+          Cor: { color }
         </div>
 
         <div className="product-informations">
-
+          Tamanho: { size }
         </div>
 
         <div className="product-informations-2">
-
-        </div>
-
-        <div className="product-banner">
-
+          Descrição: { description }
         </div>
 
         <div className="buy-button">

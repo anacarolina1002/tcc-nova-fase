@@ -6,7 +6,7 @@ import {
 
 import CookiesPage from './pages/CookiesPage';
 import AboutUs from './pages/AboutUs';
-import Adress from './pages/Endereço';
+import Address from './pages/Address';
 import Home from './pages/Home';
 import Cadastro from './pages/Cadastro';
 import Login from './pages/Login';
@@ -34,8 +34,8 @@ export default function Routes() {
         <Route exact path="/add/address">
           <AddAddress />
         </Route>
-        <Route path="/adress">
-          <Adress/>
+        <Route path="/address">
+          <Address />
         </Route>
         <Route path="/admin">
           <Admin/>

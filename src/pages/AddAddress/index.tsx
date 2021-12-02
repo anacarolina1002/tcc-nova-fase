@@ -1,11 +1,28 @@
 import { useState } from 'react';
+import { api } from '../../utils/api';
 
 import './style.css';
 
 const AddAddress = () => {
-  const [cep, setCep] = useState<string>();
+  const [zipCode, setZipCode] = useState<string>();
   const [streetName, setStreetName] = useState<string>();
-  const [streetNumber, setStreetNumber] = useState<number>();
+  const [houseNumber, setHouseNumber] = useState<number>();
+  
+  const saveAddress = async () => {
+    try { 
+      await api.post('/address', { 
+        zip_code: zipCode,
+        street_name: streetName,
+        house_number: houseNumber,
+      }, { 
+        headers: { 
+          'Authorization': 'Bearer ' + localStorage.getItem('@token/sustentalize') 
+        } 
+      });
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
 
   return (
     <div className="container">
@@ -13,7 +30,7 @@ const AddAddress = () => {
         <input 
           type="text" 
           placeholder="Insira seu CEP" 
-          onChange={event => setCep(event.target.value)}
+          onChange={event => setZipCode(event.target.value)}
         />
 
         <input 
@@ -25,10 +42,10 @@ const AddAddress = () => {
         <input 
           type="text" 
           placeholder="Insira o número de sua casa" 
-          onChange={event => setStreetNumber(Number(event.target.value))}
+          onChange={event => setHouseNumber(Number(event.target.value))}
         />
         
-        <button className="save-address">Salvar endereço</button>
+        <button className="save-address" onClick={saveAddress}>Salvar endereço</button>
       </div>
     </div>
   );

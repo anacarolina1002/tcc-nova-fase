@@ -16,7 +16,6 @@ type User = {
   email: string;
   username: string;
   password: string;
-  session_id: string;
 }
 
 function Login() {
@@ -25,9 +24,11 @@ function Login() {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
 
-  const apiRequest = async () => {
+  const login = async () => {
     try {
       const res = await api.post('/login', { email, password });
+      
+      console.log(res);
 
       if (!res.data.login) 
         return;
@@ -39,23 +40,13 @@ function Login() {
     }
   }
 
-  const apiRequestGetUserFromSession = async () => {
-    try {
-      const res = await api.get<User>('/user/session');
-      setEmail(res.data.email);
-      setPassword(res.data.password);
-    } catch (err: any) {
-      throw new Error(err);
-    }
-  }
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     })
   }
-
+  
   return (
     <CookiesProvider>
       <ContextWrapper>
@@ -72,15 +63,22 @@ function Login() {
                         LOGIN DE USUÁRIO
                     </div>
                     <div className="input-1">
-                      <input type="text" placeholder="Insira seu nome de usuário" onChange={event => setEmail(event.target.value)}></input>
+                      <input 
+                        type="text" 
+                        placeholder="Insira seu nome de usuário" 
+                        onChange={event => setEmail(event.target.value)} 
+                      />
                     </div>
                     <div className="input-2">
-                      <input type="text" placeholder="Insira sua senha"></input>
+                      <input 
+                        type="text" 
+                        placeholder="Insira sua senha"
+                        onChange={event => setPassword(event.target.value)} 
+                      />
                     </div>
                     <div className="button-1">
                       <button type="button" onClick={() => {
-                        apiRequest();
-                        apiRequestGetUserFromSession();
+                        login();
                       }}>ENTRAR</button>
                     </div>
                     <div className="subtitle-1">
@@ -101,7 +99,7 @@ function Login() {
                 Atendimento Online
                 </div>
               </div>
-              <Footer/>
+              {/* <Footer/> */}
               </div>
               </div>
 
