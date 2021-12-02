@@ -1,5 +1,5 @@
 import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarFooter, SidebarContent  } from 'react-pro-sidebar';
-import {FiShoppingBag,FiUsers,FiBell,FiDollarSign} from "react-icons/fi";
+import {FiShoppingBag,FiUsers,FiDollarSign} from "react-icons/fi";
 import 'react-pro-sidebar/dist/css/styles.css';
 import './SideBar.css'
 

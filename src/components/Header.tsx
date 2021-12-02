@@ -14,9 +14,6 @@ const Header = () => {
       <img src={sustentalize1} className="App-logo" alt="logo" style={{ position:'relative', width: 125, height: 125, display: 'flex', marginRight: '1000px' }} />
       </div>
       <SearchBar />
-      <div className="fill-cart">
-      <BsFillCartFill size={25}/>
-      </div>
       <div className="contact">
       <div className="instagram">
         <a href=''>
@@ -27,6 +24,21 @@ const Header = () => {
         <a href="">
           <AiOutlineWhatsApp size={25}/>
         </a>
+      </div>
+      </div>
+      <div className="div-dp-menu">
+      <div className="dp-menu">
+        <ul>
+            <li><a href="#">Produtos</a>
+                <ul>
+                    <li><a href="#">produto-1</a></li>
+                    <li><a href="#">produto-2</a></li>
+                    <li><a href="#">produto-3</a></li>
+                    <li><a href="#series">produto-4</a></li>
+                    <li><a href="#">produto-5</a></li>
+                </ul>
+            </li>
+           </ul>
       </div>
       </div>
       <div className="menu">
