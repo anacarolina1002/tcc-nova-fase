@@ -41,11 +41,43 @@ const Product: FC = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [url, setUrl] = useState("");
 
-  const buying = () => { 
+  const buying = () => {
     const products = JSON.parse(String(localStorage.getItem("@products/sustentalize"))) ?? [];
-    const newProducts = products.push(id);
+
+    let productAlreadyInArray = false;
+    const newProducts = products.map((product: any) => {
+      if (product.id === id) {
+        productAlreadyInArray = true;
+        return { id, quantity: product.quantity + 1 };
+      }
+      return { id: product.id, quantity: product.quantity };
+    });
+
+    if (!productAlreadyInArray) {
+      newProducts.push({ id, quantity: 1 });
+    }
+    //const newProducts = products.push(id);
     localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
     history.push('/address');
+  }
+
+  const addToShoppingCart = () => {
+    const products = JSON.parse(String(localStorage.getItem("@products/sustentalize"))) ?? [];
+
+    let productAlreadyInArray = false;
+    const newProducts = products.map((product: any) => {
+      if (product.id === id) {
+        productAlreadyInArray = true;
+        return { id, quantity: product.quantity + 1 };
+      }
+      return { id: product.id, quantity: product.quantity };
+    });
+
+    if (!productAlreadyInArray) {
+      newProducts.push({ id, quantity: 1 });
+    }
+    //const newProducts = products.push(id);
+    localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
   }
 
   const gettingProductData = async (id: string) => {
@@ -58,10 +90,10 @@ const Product: FC = () => {
       setColor(data.product.color);
       setDescription(data.product.description);
       setImageUrl(data.product.image_url);
-      
+
       const res = await api.get<ImageData>(`/imageurl/${data.product.image_url}`);
       setUrl(res.data.url);
-      
+
       console.log(url);
     } catch (err) {
       console.error(err);
@@ -77,32 +109,36 @@ const Product: FC = () => {
       <Header />
       <div className="product-body">
         <div className="product-image">
-          <img src={ url } />
+          <img src={url} />
         </div>
 
         <div className="product-name">
-          { name }
+          {name}
         </div>
 
         <div className="product-price">
-          R$ { price }
+          R$ {price}
         </div>
 
         <div className="product-color">
-          Cor: { color }
+          Cor: {color}
         </div>
 
         <div className="product-informations">
-          Tamanho: { size }
+          Tamanho: {size}
         </div>
 
         <div className="product-informations-2">
-          Descrição: { description }
+          Descrição: {description}
         </div>
 
         <div className="buy-button">
-          <button type="button" onClick={buying}>COMPRAR</button>
+          <button type="button" onClick={addToShoppingCart}>Adicionar ao carrinho</button>
         </div>
+
+        {/* <div className="buy-button">
+          <button type="button" onClick={buying}>COMPRAR</button>
+        </div> */}
       </div>
       {/* <Footer/> */}
     </div>

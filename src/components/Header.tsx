@@ -7,6 +7,7 @@ import { api } from '../utils/api';
 import './Header.css';
 
 type Product = {
+  id: number,
   name: string,
   size: string,
   price: number,
@@ -14,33 +15,75 @@ type Product = {
   quantity: number
 }
 
+type ProductDTO = {
+  id: number,
+  quantity: number
+}
+
+type ShoppingCartProduct = {
+  id: number,
+  name: string,
+  price: number,
+  quantity: number
+}
+
 const Header = () => {
-  const [productIds, setProductIds] = useState<number[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [productIds, setProductIds] = useState<ProductDTO[]>([]);
+  const [products, setProducts] = useState<ShoppingCartProduct[]>([]);
 
   const getProductsData = async () => {
-    const productsData = await Promise.all(productIds.map(async (id: number) => {
-      try {
-        const res = await api.get(`/product/${id}`)
-      } catch(err: any) {
-        console.log(err.message);
+    const productsData = [];
+    
+    for (const { id, quantity } of productIds) {
+      for (const product of allProducts) {
+        if (product.id === Number(id)) {
+          productsData.push({ name: product.name, price: product.price, quantity, id });
+        }
       }
-    }));
+    }
+
+    setProducts(productsData);
+  }
+
+  const getAllProducts = async () => {
+    try {
+      const res = await api.get('/product');
+      setAllProducts([ ...res.data.products ]);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }
 
   useEffect(() => {
-    const storedProducts = JSON.parse(String(localStorage.getItem('@products/sustentalize')));
+    getAllProducts();
+  }, [])
 
-    if (Number.isInteger(storedProducts)) {
-      setProductIds([ ...productIds, storedProducts ])
-    } else {
-      setProductIds([ ...productIds, ...storedProducts ]);
-    }
-  }, []);
-  
+  useEffect(() => {
+    const storedProducts = JSON.parse(String(localStorage.getItem('@products/sustentalize'))) ?? [];
+    setProductIds([...storedProducts]);
+  }, [allProducts]);
+
   useEffect(() => {
     getProductsData();
   }, [productIds]);
+
+  const removeItem = (id: number) => {
+    console.log('foi')
+    console.log(id);
+    
+    const storedProducts = JSON.parse(String(localStorage.getItem('@products/sustentalize'))) ?? [];
+    console.log(storedProducts);
+    
+    const newProducts = storedProducts.map((product: ProductDTO) => {
+      return Number(product.id) === id ? { id: product.id, quantity: product.quantity - 1 } : { ...product };
+    });
+
+    console.log(newProducts);
+    
+    localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
+    setProductIds([ ...newProducts ]);
+  }
 
   return (
     <div className="header">
@@ -49,7 +92,28 @@ const Header = () => {
       <div className="login-name">LOGIN</div>
 
       <div className="">
-        <div className="flex mb-2 flex-row bg-gray-50 rounded-full text-black p-2 justify-around w-auto items-center">
+        {
+          products.length > 0 ? products.map((product) => {
+            return (
+              <div className="flex mb-2 flex-row bg-gray-50 rounded-full text-black p-2 justify-around w-auto items-center" key={product.id}>
+                <div className="min-w-max mr-2 ml-2 font-medium flex flex-row">
+                  name: <div className="text-green-800 ml-1">{product.name}</div>
+                </div>
+                <div className="min-w-max mr-2 font-medium flex flex-row">
+                  quantity: <div className="text-green-800 ml-1">{product.quantity}</div>
+                </div>
+                <div className="min-w-max mr-2 font-medium flex flex-row">
+                  price: <div className="text-green-800 ml-1">{product.price}</div>
+                </div>
+                <div className="mr-2">
+                  <FiXCircle onClick={() => removeItem(product.id)}/>
+                </div>
+              </div>
+            )
+          }) : null
+        }
+
+        {/* <div className="flex mb-2 flex-row bg-gray-50 rounded-full text-black p-2 justify-around w-auto items-center">
           <div className="min-w-max mr-2 ml-2 font-medium flex flex-row">
             name: <div className="text-green-800 ml-1">{"teste"}</div>
           </div>
@@ -59,7 +123,7 @@ const Header = () => {
           <div className="min-w-max mr-2 font-medium flex flex-row">
             price: <div className="text-green-800 ml-1">{10}</div>
           </div>
-          <div className="mr-2">
+          <div className="mr-2" onClick={() => { }}>
             <FiXCircle />
           </div>
         </div>
@@ -74,7 +138,7 @@ const Header = () => {
           <div className="mr-1">name</div>
           <div className="mr-1">quantity</div>
           <div className="mr-1">price</div>
-        </div>
+        </div> */}
       </div>
 
       <div className="menu">
