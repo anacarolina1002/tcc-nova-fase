@@ -11,7 +11,7 @@ import '../App.css';
 
 import { api } from '../utils/api';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import { useMercadopago } from 'react-sdk-mercadopago';
 
@@ -19,6 +19,7 @@ import { config } from 'dotenv';
 config();
 
 type AddressFromDb = {
+  id: number,
   house_number: number,
   street_name: string,
   zip_code: string
@@ -44,9 +45,17 @@ type IAddress = {
 }
 
 function Address() {
-  let location = useLocation();
+  let history = useHistory();
+  let location: any = useLocation();
 
   const [preferenceId, setPreferenceId] = useState('');
+  const [products, setProducts] = useState<any>([]);
+
+  useEffect(() => {
+    if (location.state)
+      if (location.state.products)
+        setProducts([...location.state.products]);
+  }, []);
 
   const mercadopago = useMercadopago.v2("TEST-bcfd2dc6-1894-4262-90a4-7b4d70bbb791", {
     locale: 'pt-BR'
@@ -87,8 +96,6 @@ function Address() {
   }, []);
 
   const createPreference = async (selectedAddress: AddressFromDb) => {
-    console.log(selectedAddress);
-
     try {
       const { data } = await api.post('/preference', {
         selectedAddress,
@@ -99,7 +106,7 @@ function Address() {
         }
       });
 
-      console.log(data.preferenceId);
+      localStorage.removeItem('@products/sustentalize');
 
       setPreferenceId(data.preferenceId);
     } catch (err: any) {
@@ -108,114 +115,106 @@ function Address() {
   }
 
   const createBuyPreference = async (selectedAddress: AddressFromDb) => {
-    console.log(selectedAddress);
-
     try {
       const { data } = await api.post('/preference', {
         selectedAddress,
-        products: JSON.parse(String(localStorage.getItem('@products/sustentalize')))
+        products
       }, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('@token/sustentalize')
         }
       });
 
-      console.log(data.preferenceId);
-
       setPreferenceId(data.preferenceId);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+  
+  const removeAddress = async (id: number) => {
+    try {
+      await api.delete(`/address/${id}`, { 
+        headers: { 
+          'Authorization': 'Bearer ' + localStorage.getItem('@token/sustentalize') 
+        } 
+      });
+      
+      setAddresses([ ...addresses.filter((address: any) => address.id !== id) ]);
     } catch (err: any) {
       console.log(err.message);
     }
   }
 
   return (
-    <>
-      {
-        <div className="App">
-          <div className="header">
-            <Header />
-          </div>
-          <div>
-            <div className="right-side">
-              <div className="left-side">
-                <div className="text-1-left-side">
-                  Revise e confirme sua compra
-                  <p style={{ fontSize: 15, marginTop: 50, marginRight: 140 }}>Detalhes de envio</p>
-                </div>
-                {
-                  addresses.length > 0 ? addresses.map(address => {
-                    return (
-                      <div className="adress-box" onClick={() => {
-                        createPreference(address);
-                      }}>
-                        <div className="map-icon-area">
-                          <FaMapMarkerAlt />
-                        </div>
-                        <div className="remove-adress">
-                          <a href="#"><IoMdRemoveCircle size={30} color="#d94f5c" /></a>
-                        </div>
-                        <div className="adress-text">
-                          {address.street_name}
-                          <div className="street-text">
-                            {address.zip_code}, {address.house_number}
-                          </div>
-                        </div>
+    <div className="App">
+      <div className="header">
+        <Header />
+      </div>
+      <div>
+        <div className="right-side">
+          <div className="left-side">
+            <div className="text-1-left-side">
+              Revise e confirme sua compra
+              <p style={{ fontSize: 15, marginTop: 50, marginRight: 140 }}>Detalhes de envio</p>
+            </div>
+            {
+              addresses.length > 0 ? addresses.map(address => {
+                return (
+                  <div className="adress-box" onClick={() => {
+                    if (products.length > 0)
+                      return createBuyPreference(address);
+                    return createPreference(address);
+                  }}>
+                    <div className="map-icon-area">
+                      <FaMapMarkerAlt />
+                    </div>
+                    <div className="remove-adress cursor-pointer" onClick={() => removeAddress(address.id)}>
+                      <a><IoMdRemoveCircle size={30} color="#d94f5c" /></a>
+                    </div>
+                    <div className="adress-text">
+                      {address.street_name}
+                      <div className="street-text">
+                        {address.zip_code}, {address.house_number}
                       </div>
-                    )
-                  }) : null
-                }
-                <div className="adress-box">
-                  <div className="map-icon-area">
-                    <FaMapMarkerAlt />
-                  </div>
-                  <div className="remove-adress">
-                    <a href="#"><IoMdRemoveCircle size={30} color="#d94f5c" /></a>
-                  </div>
-                  <div className="adress-text">
-                    Av. das Bananeiras
-                    <div className="street-text">
-                      Rua das Bananas, 0123455
                     </div>
                   </div>
-                </div>
-                <div className="add-adress">
-                  <div className="map-icon-area">
-                    <FaMapMarker />
-                  </div>
-                  <div className="add-adress-icon">
-                    <a href="#"><IoIosAddCircle size={30} color="#d94f5c" /></a>
-                  </div>
-                  <div className="add-text">
-                    <a href="#">Adicionar novo endereço</a>
-                  </div>
-                </div>
-                <div className="end-buy">
-                  <div className="cho-container" />
-                </div>
+                )
+              }) : null
+            }
+            <div className="add-adress" onClick={() => history.push('/add/address')}>
+              <div className="map-icon-area">
+                <FaMapMarker />
               </div>
-              <img src={folhagem} className="image-right" alt="image-right" />
+              <div className="add-adress-icon">
+                <a href="#"><IoIosAddCircle size={30} color="#d94f5c" /></a>
+              </div>
+              <div className="add-text">
+                <a>Adicionar novo endereço</a>
+              </div>
             </div>
-
+            <div className="end-buy">
+              <div className="cho-container" />
+            </div>
           </div>
-          <div className="footer-1">
-            <div className="footer-1-text">
-              Que tal levar a sustentabilidade<br></br>pra dentro de sua casa?
-            </div>
-            <div className="footer-1-subtext">
-              ana.111811@alunosatc.edu.br<br></br>
-              (48) 99651-6580<br></br>
-              Rua Marechal Floriano Peixoto, Criciúma, Santa Catarina - 88801-040<br></br>
-              Atendimento Online
-            </div>
-
-            <Footer />
-
-          </div>
+          <img src={folhagem} className="image-right" alt="image-right" />
         </div>
 
-      }
+      </div>
+      <div className="footer-1">
+        <div className="footer-1-text">
+          Que tal levar a sustentabilidade<br></br>pra dentro de sua casa?
+        </div>
+        <div className="footer-1-subtext">
+          ana.111811@alunosatc.edu.br<br></br>
+          (48) 99651-6580<br></br>
+          Rua Marechal Floriano Peixoto, Criciúma, Santa Catarina - 88801-040<br></br>
+          Atendimento Online
+        </div>
 
-    </>
+        <Footer />
+
+      </div>
+    </div>
   );
 }
 

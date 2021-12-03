@@ -9,13 +9,13 @@ function Admin(){
   return(
     <div>
       <Header />
-      <div>
-          <SideBar/>
-        <div className="icon-admin">
+      <div className="min-h-screen">
+        <SideBar/>
+        <div className="icon-admin min-h-screen">
           <img src={adminIcon} style={{ width:250, height:250}} /> 
         </div>
       </div>
-        <p style={{marginBottom:0}}><Footer /></p>
+        <div><Footer /></div>
     </div>
   );
 }

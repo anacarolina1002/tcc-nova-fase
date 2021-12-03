@@ -23,10 +23,10 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/about-us">
-          <AboutUs/>
+          <AboutUs />
         </Route>
         <Route path="/cookies-page">
-          <CookiesPage/>
+          <CookiesPage />
         </Route>
         <Route exact path="/add/product">
           <AddProduct />

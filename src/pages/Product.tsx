@@ -42,7 +42,7 @@ const Product: FC = () => {
   const [url, setUrl] = useState("");
 
   const buying = () => {
-    history.push('/address', { products: [{ name, price, size, color, description, imageUrl, id }] });
+    history.push('/address', { products: [{ id, quantity: 1 }] });
   }
 
   const addToShoppingCart = () => {
@@ -116,15 +116,15 @@ const Product: FC = () => {
           Descrição: {description}
         </div>
 
-        <div className="buy-button">
+        <div className="cart-button">
           <button type="button" onClick={addToShoppingCart}>Adicionar ao carrinho</button>
         </div>
 
-        <div className="">
+        <div className="buy-button">
           <button type="button" onClick={buying}>COMPRAR</button>
         </div>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };

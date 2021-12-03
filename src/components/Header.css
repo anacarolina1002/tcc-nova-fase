@@ -1,0 +1,76 @@
+* {
+  font-family: 'Roboto';
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul {
+  background-color: black;
+  color: white;
+}
+
+.menu ul li {
+  display: inline;
+  position: relative;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px;
+  transition: background .3s;
+}
+
+.menu ul ul {
+  display: none;
+  left: 0;
+  position: absolute;
+}
+
+.menu ul li:hover ul {
+  display: block;
+}
+
+.menu ul ul {
+  width: 150px;
+}
+
+.menu ul ul li a {
+  display: block;
+}
+
+.contact {
+  position: absolute;
+  flex-direction: row-reverse;
+  display: flex;
+  flex: 1;
+  width: 150px;
+  height: 150px;
+  margin-top: 90px;
+  margin-left: 1000px;
+}
+
+.instagram {
+  margin-left: 10px;
+}
+
+.fill-cart {
+  position: absolute;
+  margin-left: 750px;
+  margin-top: 95px;
+}
+
+.logo {
+  position: absolute;
+  margin-left: 0;
+}

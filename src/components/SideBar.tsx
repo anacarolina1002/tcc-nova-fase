@@ -3,15 +3,17 @@ import {FiShoppingBag,FiUsers,FiBell,FiDollarSign} from "react-icons/fi";
 import 'react-pro-sidebar/dist/css/styles.css';
 import './SideBar.css'
 
+import { useHistory } from 'react-router-dom';
+
 export default function SideBar() {
+  let history = useHistory();
+
   return(
   <ProSidebar>
     <SidebarHeader />
     <SidebarContent>
       <Menu iconShape="square">
-        <MenuItem icon={<FiDollarSign />}>Vendas</MenuItem>
-        <MenuItem icon={<FiShoppingBag />}>Produtos</MenuItem>
-        <MenuItem icon={<FiUsers />}>Clientes</MenuItem>
+        <MenuItem icon={<FiShoppingBag />} onClick={() => history.push('/admin-products')}>Produtos</MenuItem>
       </Menu>
     </SidebarContent>
     <SidebarFooter />
