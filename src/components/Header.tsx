@@ -26,35 +26,29 @@ const Header = () => {
         </a>
       </div>
       </div>
-      <div className="div-dp-menu">
-      <div className="dp-menu">
-        <ul>
-            <li><a href="#">Produtos</a>
-                <ul>
+      <div className="menu">
+        <ul className="menu-3" style={{ width: '90vh', display: 'flex', justifyContent: 'center' }}>
+          <li>
+            <a href="#">HOME</a>
+        </li>
+          <li>
+            <a href="#">SOBRE NÓS</a>
+          </li>
+          <li>
+            <a href="#">LOGIN</a>
+          </li>
+          <li>
+            <a href="#">CADASTRO</a>
+          </li>  
+          <li><a href="#"><BsFillCartFill/></a>
+            <ul>
                     <li><a href="#">produto-1</a></li>
                     <li><a href="#">produto-2</a></li>
                     <li><a href="#">produto-3</a></li>
-                    <li><a href="#series">produto-4</a></li>
+                    <li><a href="#">produto-4</a></li>
                     <li><a href="#">produto-5</a></li>
                 </ul>
-            </li>
-           </ul>
-      </div>
-      </div>
-      <div className="menu">
-        <ul className="menu-3" style={{ width: '100vw', display: 'flex', justifyContent: 'center' }}>
-          <li>
-            HOME
-        </li>
-          <li>
-            SOBRE NÓS
-          </li>
-          <li>
-            LOGIN
-          </li>
-          <li>
-            CADASTRO
-          </li>          
+            </li>        
         </ul>
       </div>
     </div>
