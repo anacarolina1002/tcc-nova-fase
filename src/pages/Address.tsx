@@ -11,7 +11,7 @@ import '../App.css';
 
 import { api } from '../utils/api';
 
-import cep from 'cep-promise';
+import { useLocation } from 'react-router-dom';
 
 import { useMercadopago } from 'react-sdk-mercadopago';
 
@@ -44,9 +44,11 @@ type IAddress = {
 }
 
 function Address() {
+  let location = useLocation();
+
   const [preferenceId, setPreferenceId] = useState('');
 
-  const mercadopago = useMercadopago.v2(process.env.MERCADO_PAGO_API_KEY || "", {
+  const mercadopago = useMercadopago.v2("TEST-bcfd2dc6-1894-4262-90a4-7b4d70bbb791", {
     locale: 'pt-BR'
   });
 
@@ -74,16 +76,6 @@ function Address() {
         }
       });
 
-      // const _addresses = data.addresses.map((__address: AddressFromDb) => {
-      //   cep(__address.zip_code)
-      //     .then((addressFromCepPromise: Address) => {
-      //       return { ...__address, ...addressFromCepPromise };
-      //     })
-      //     .catch((err: any) => {
-      //       console.error(err);
-      //     });
-      // });
-
       setAddresses(data.addresses);
     } catch (err: any) {
       console.log(err.message);
@@ -95,6 +87,27 @@ function Address() {
   }, []);
 
   const createPreference = async (selectedAddress: AddressFromDb) => {
+    console.log(selectedAddress);
+
+    try {
+      const { data } = await api.post('/preference', {
+        selectedAddress,
+        products: JSON.parse(String(localStorage.getItem('@products/sustentalize')))
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('@token/sustentalize')
+        }
+      });
+
+      console.log(data.preferenceId);
+
+      setPreferenceId(data.preferenceId);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+
+  const createBuyPreference = async (selectedAddress: AddressFromDb) => {
     console.log(selectedAddress);
 
     try {
@@ -178,7 +191,6 @@ function Address() {
                 </div>
                 <div className="end-buy">
                   <div className="cho-container" />
-                  {/* <button type="button" >CONFIRMAR</button> */}
                 </div>
               </div>
               <img src={folhagem} className="image-right" alt="image-right" />

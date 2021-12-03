@@ -42,23 +42,7 @@ const Product: FC = () => {
   const [url, setUrl] = useState("");
 
   const buying = () => {
-    const products = JSON.parse(String(localStorage.getItem("@products/sustentalize"))) ?? [];
-
-    let productAlreadyInArray = false;
-    const newProducts = products.map((product: any) => {
-      if (product.id === id) {
-        productAlreadyInArray = true;
-        return { id, quantity: product.quantity + 1 };
-      }
-      return { id: product.id, quantity: product.quantity };
-    });
-
-    if (!productAlreadyInArray) {
-      newProducts.push({ id, quantity: 1 });
-    }
-    //const newProducts = products.push(id);
-    localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
-    history.push('/address');
+    history.push('/address', { products: [{ name, price, size, color, description, imageUrl, id }] });
   }
 
   const addToShoppingCart = () => {
@@ -136,9 +120,9 @@ const Product: FC = () => {
           <button type="button" onClick={addToShoppingCart}>Adicionar ao carrinho</button>
         </div>
 
-        {/* <div className="buy-button">
+        <div className="">
           <button type="button" onClick={buying}>COMPRAR</button>
-        </div> */}
+        </div>
       </div>
       {/* <Footer/> */}
     </div>

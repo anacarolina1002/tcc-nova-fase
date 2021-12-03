@@ -4,6 +4,8 @@ import sustentalize1 from '../images/sustentalize1.png';
 import { FiXCircle } from 'react-icons/fi'
 import { api } from '../utils/api';
 
+import { useHistory } from 'react-router-dom';
+
 import './Header.css';
 
 type Product = {
@@ -28,6 +30,8 @@ type ShoppingCartProduct = {
 }
 
 const Header = () => {
+  let history = useHistory();
+
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [productIds, setProductIds] = useState<ProductDTO[]>([]);
   const [products, setProducts] = useState<ShoppingCartProduct[]>([]);
@@ -69,20 +73,23 @@ const Header = () => {
   }, [productIds]);
 
   const removeItem = (id: number) => {
-    console.log('foi')
-    console.log(id);
-    
     const storedProducts = JSON.parse(String(localStorage.getItem('@products/sustentalize'))) ?? [];
-    console.log(storedProducts);
     
     const newProducts = storedProducts.map((product: ProductDTO) => {
-      return Number(product.id) === id ? { id: product.id, quantity: product.quantity - 1 } : { ...product };
+      return product.id === id ? { id: product.id, quantity: product.quantity - 1 } : { ...product };
     });
-
-    console.log(newProducts);
+    
+    for (const product of newProducts) {
+      if (product.quantity <= 0) 
+        newProducts.splice(newProducts.indexOf(product), 1);
+    }
     
     localStorage.setItem('@products/sustentalize', JSON.stringify(newProducts));
     setProductIds([ ...newProducts ]);
+  }
+  
+  const buy = () => {
+    history.push('/address');
   }
 
   return (
@@ -112,6 +119,10 @@ const Header = () => {
             )
           }) : null
         }
+        
+        <div className="bg-green-800 font-medium rounded-full p-2 w-60" onClick={buy}>
+          Comprar
+        </div>
 
         {/* <div className="flex mb-2 flex-row bg-gray-50 rounded-full text-black p-2 justify-around w-auto items-center">
           <div className="min-w-max mr-2 ml-2 font-medium flex flex-row">
